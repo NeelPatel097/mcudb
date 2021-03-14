@@ -1,7 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mcuapp/common/constants/size_constants.dart';
+import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
+
+import 'logo.dart';
 
 class MovieAppBar extends StatelessWidget {
   @override

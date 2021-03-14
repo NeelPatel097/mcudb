@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:mcuapp/data/core/api_constants.dart';
+import 'package:http/http.dart';
+
+import 'api_constants.dart';
 
 class ApiClient  {
   final Client _client;
@@ -11,8 +13,8 @@ class ApiClient  {
     final response = await _client.get(
       '${ApiConstants.BASE_URL}$path?api_key=${ApiConstants.API_KEY}',
       headers: {
-        'Content-Type:' 'application/json',
-      }
+        'Content-Type': 'application/json',
+      },
     );
 
     if (response.statusCode == 200) {

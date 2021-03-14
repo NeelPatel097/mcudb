@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
 import 'package:mcuapp/domain/entities/app_error.dart';
 

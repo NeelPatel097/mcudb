@@ -1,3 +1,5 @@
+import 'package:mcuapp/common/screenutil/screenutil.dart';
+
 extension SizeExtension on num {
   num get w => ScreenUtil().setWidth(this);
 

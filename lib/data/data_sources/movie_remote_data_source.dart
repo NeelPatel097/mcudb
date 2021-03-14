@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:mcuapp/data/core/api_constants.dart';
-import 'package:mcuapp/data/models/mcu_model.dart';
-import 'package:mcuapp/data/models/mcu_result_model.dart';
+import 'package:mcuapp/data/core/api_client.dart';
+import 'package:mcuapp/data/models/movie_model.dart';
+import 'package:mcuapp/data/models/movies_result_model.dart';
+
+import '../models/movies_result_model.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getTrending();
@@ -13,7 +14,7 @@ abstract class MovieRemoteDataSource {
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   final ApiClient _client;
 
-  MovieRemoteDataSourceImpl(this.client);
+  MovieRemoteDataSourceImpl(this._client);
 
   @override
   Future<List<MovieModel>> getTrending() async {
@@ -40,11 +41,10 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   }
 
   @override
-  Future<List<MovieModel>> getPlayinNow() async {
+  Future<List<MovieModel>> getPlayingNow() async {
     final response = await _client.get('movie/now_playing');
     final movies = MoviesResultModel.fromJson(response).movies;
     print(movies);
     return movies;
   }
-
 }

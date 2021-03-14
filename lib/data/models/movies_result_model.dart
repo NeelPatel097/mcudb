@@ -1,15 +1,15 @@
-import 'package:mcuapp/data/models/mcu_model.dart';
+import 'movie_model.dart';
 
-class McuResultModel {
-  List<McuModel> movies;
+class MoviesResultModel {
+  List<MovieModel> movies;
 
-  McuResultModel({this.movies});
+  MoviesResultModel({this.movies});
 
-  McuResultModel.fromJson(Map<String, dynamic> json) {
+  MoviesResultModel.fromJson(Map<String, dynamic> json) {
     if (json['results'] != null) {
-      movies = new List<McuModel>();
+      movies = new List<MovieModel>();
       json['results'].forEach((v) {
-        movies.add(McuModel.fromJson(v));
+        movies.add(MovieModel.fromJson(v));
       });
     }
   }

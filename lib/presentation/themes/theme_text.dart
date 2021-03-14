@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mcuapp/common/constants/size_constants.dart';
+import 'package:mcuapp/common/extensions/size_extensions.dart';
+
 class ThemeText {
   const ThemeText._();
 

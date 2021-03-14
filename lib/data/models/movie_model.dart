@@ -1,6 +1,6 @@
-import 'package:mcuapp/data/domain/entities/movie_entity.dart';
+import 'package:mcuapp/domain/entities/movie_entity.dart';
 
-class McuModel extends McuEntity {
+class MovieModel extends MovieEntity {
   final int id;
   final bool video;
   final int voteCount;
@@ -17,7 +17,7 @@ class McuModel extends McuEntity {
   final double popularity;
   final String mediaType;
 
-  McuModel({
+  MovieModel({
     this.id,
     this.video,
     this.voteCount,
@@ -43,8 +43,8 @@ class McuModel extends McuEntity {
     overview: overview,
   );
 
-  factory McuModel.fromJson(Map<String, dynamic> json) {
-    return McuModel(
+  factory MovieModel.fromJson(Map<String, dynamic> json) {
+    return MovieModel(
       popularity: json['popularity']?.toDouble() ?? 0.0,
       voteCount: json['vote_count'],
       video: json['video'],

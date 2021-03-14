@@ -1,4 +1,9 @@
-import 'package:mcuapp/domain/repositories/movie_repository.dart';
+import 'package:dartz/dartz.dart';
+import 'package:mcuapp/data/data_sources/movie_remote_data_source.dart';
+import 'package:mcuapp/data/models/movie_model.dart';
+import 'package:mcuapp/domain/entities/app_error.dart';
+import 'package:mcuapp/domain/entities/movie_entity.dart';
+import '../../domain/repositories/movie_repository.dart';
 
 class MovieRepositoryImpl extends MovieRepository {
   final MovieRemoteDataSource remoteDataSource;
