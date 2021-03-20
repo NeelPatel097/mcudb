@@ -6,7 +6,7 @@ import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
 import '../../../blocs/movie_backdrop/movie_backdrop_bloc.dart';
-import 'movie_card_widget.dart';
+import 'animated_movie_card_widget.dart';
 
 
 class MoviePageView extends StatefulWidget {
@@ -52,7 +52,9 @@ class _MoviePageViewState extends State<MoviePageView> {
         controller: _pageController,
         itemBuilder: (context, index) {
           final MovieEntity movie = widget.movies[index];
-          return MovieCardWidget(
+          return AnimatedMovieCardWidget(
+              index: index,
+              pageController: _pageController,
               movieId: movie.id,
               posterPath: movie.posterPath,
           );

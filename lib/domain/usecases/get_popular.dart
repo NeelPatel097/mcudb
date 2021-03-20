@@ -11,7 +11,7 @@ class GetPopular extends UseCase<List<MovieEntity>, NoParams> {
   GetPopular(this.repository);
 
   @override
-  Future<Either<AppError, List<MovieEntity>>> call(NoParams, noParams) async{
+  Future<Either<AppError, List<MovieEntity>>> call(NoParams noParams) async{
     return await repository.getPopular();
   }
 }
