@@ -16,6 +16,7 @@ class MovieApp extends StatelessWidget {
       title: 'MCU App',
        theme: ThemeData(
          primaryColor: AppColor.vulcan,
+         accentColor: AppColor.marvelRed,
          scaffoldBackgroundColor: AppColor.vulcan,
          visualDensity: VisualDensity.adaptivePlatformDensity,
          textTheme: ThemeText.getTextTheme(),

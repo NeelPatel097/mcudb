@@ -64,6 +64,6 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget> with SingleTicker
   }
 
   void _onTabTapped(int index) {
-
+      movieTabbedBloc.add(MovieTabChangedEvent(currentTabIndex: index));
   }
 }
