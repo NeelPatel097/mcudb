@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
+import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
 import 'package:mcuapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 import 'package:mcuapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
 import 'package:mcuapp/data/core/api_client.dart';
@@ -55,5 +56,7 @@ Future init() async {
     getPlayingNow: GetPlayingNow(getItInstance()),
   ),
   );
+
+  getItInstance.registerSingleton<LanguageBloc>(LanguageBloc());
   }
 

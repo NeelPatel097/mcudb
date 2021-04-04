@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
+import 'package:mcuapp/common/extensions/string_extensions.dart';
+import 'package:mcuapp/presentation/app_localizations.dart';
 import 'package:mcuapp/presentation/themes/theme_color.dart';
 import 'package:mcuapp/presentation/themes/theme_text.dart';
 
@@ -34,7 +36,7 @@ class TabTitleWidget extends StatelessWidget {
           ),
         ),
         child: Text(
-          title,
+          title.t(context), //'popular', 'now', 'soon'
           style: isSelected
               ? Theme.of(context).textTheme.royalBlueSubtitle1
               : Theme.of(context).textTheme.subtitle1,
