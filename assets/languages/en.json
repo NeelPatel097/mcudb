@@ -5,5 +5,7 @@
   "popular": "POPULAR",
   "about": "About",
   "now": "NOW",
-  "soon": "SOON"
+  "soon": "SOON",
+  "okay": "Okay",
+  "aboutDescription": "This product uses the TMDb API but is not endorsed or certified by TMDb. This app is developed for education purpose."
 }

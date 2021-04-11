@@ -8,7 +8,10 @@ import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/presentation/app_localizations.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
 import 'package:mcuapp/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:mcuapp/presentation/themes/theme_color.dart';
+import 'package:mcuapp/presentation/widgets/app_dialog.dart';
 import 'package:mcuapp/presentation/widgets/logo.dart';
+import 'package:wiredash/wiredash.dart';
 
 import 'navigation_expanded_list_tile.dart';
 
@@ -49,7 +52,10 @@ class NavigationDrawer extends StatelessWidget {
                 ),
             NavigationListItem(
                 title: TranslationConstants.feedback.t(context),
-                onPressed: () {}
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Wiredash.of(context).show();
+                }
             ),
             NavigationExpandedListItem(
                 title: TranslationConstants.language.t(context),
@@ -64,11 +70,29 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
                 title: TranslationConstants.about.t(context),
-                onPressed: () {}
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _showDialog(context);
+                }
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        child: AppDialog(
+            title: TranslationConstants.about,
+            description: TranslationConstants.aboutDescription,
+            buttonText: TranslationConstants.okay,
+            image: Image.asset(
+              'assets/pngs/tmdb_logo.png',
+              height: Sizes.dimen_32.h,
+            ) ,
+        ),
     );
   }
 }
