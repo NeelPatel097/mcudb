@@ -59,5 +59,10 @@ extension ThemeTextExtension on TextTheme {
   TextStyle get violetHeadline6 => headline6.copyWith(
     color: AppColor.white,
   );
+
+  TextStyle get marvelBodyText2 => bodyText2.copyWith(
+    color: AppColor.marvelRed,
+    fontWeight: FontWeight.w600,
+  );
 }
 

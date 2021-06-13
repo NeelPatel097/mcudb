@@ -23,7 +23,6 @@ class WiredashApp extends StatelessWidget {
       navigatorKey: navigatorKey,
       child: child,
       options: WiredashOptionsData(
-        showDebugFloatingEntryPoint: false,
         locale: Locale.fromSubtags(
           languageCode: languageCode,
         ),
