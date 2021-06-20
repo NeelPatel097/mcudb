@@ -33,6 +33,9 @@ Future init() async {
   getItInstance.registerLazySingleton<MovieRemoteDataSource>(
           () => MovieRemoteDataSourceImpl(getItInstance()));
 
+  getItInstance.registerLazySingleton<MovieLocalDataSource>(
+          () => MovieLocalDataSourceImpl(getItInstance()));
+
   getItInstance
       .registerLazySingleton<GetTrending>(() => GetTrending(getItInstance()));
   getItInstance
@@ -53,7 +56,10 @@ Future init() async {
       .registerLazySingleton<GetVideos>(() => GetVideos(getItInstance()));
 
   getItInstance.registerLazySingleton<MovieRepository>(
-          () => MovieRepositoryImpl(getItInstance()));
+          () => MovieRepositoryImpl(
+            getItInstance(),
+            getItInstance(),
+          ));
 
   getItInstance.registerFactory(() => MovieBackdropBloc());
 
