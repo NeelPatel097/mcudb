@@ -20,4 +20,11 @@ class SearchMovieLoaded extends SearchMovieState {
 
 class SearchMovieLoading extends SearchMovieState {}
 
-class SearchMovieError extends SearchMovieState {}
+class SearchMovieError extends SearchMovieState {
+  final AppErrorType errorType;
+
+  SearchMovieError(this.errorType);
+
+  @override
+  List<Object> get props => [errorType];
+}

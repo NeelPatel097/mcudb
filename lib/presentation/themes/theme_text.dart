@@ -64,5 +64,9 @@ extension ThemeTextExtension on TextTheme {
     color: AppColor.marvelRed,
     fontWeight: FontWeight.w600,
   );
+
+  TextStyle get greyCaption => caption.copyWith(
+    color: Colors.grey,
+  );
 }
 

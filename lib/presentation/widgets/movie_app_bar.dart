@@ -6,7 +6,7 @@ import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/presentation/blocs/search_movie/search_movie_bloc.dart';
-import 'package:mcuapp/presentation/journeys/search_movie/custom_search_movie.dart';
+import 'package:mcuapp/presentation/journeys/search_movie/custom_search_movie_delegate.dart';
 
 import 'logo.dart';
 
