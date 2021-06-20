@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
+import 'package:mcuapp/presentation/blocs/search_movie/search_movie_bloc.dart';
+import 'package:mcuapp/presentation/journeys/search_movie/custom_search_movie.dart';
 
 import 'logo.dart';
 
@@ -33,7 +36,13 @@ class MovieAppBar extends StatelessWidget {
               )
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: CustomSearchDelegate(
+                      BlocProvider.of<SearchMovieBloc>(context)),
+                );
+              },
               icon: Icon(
                 Icons.search,
                 color: Colors.white,
