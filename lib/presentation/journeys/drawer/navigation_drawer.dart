@@ -46,7 +46,13 @@ class NavigationDrawer extends StatelessWidget {
             ),
             NavigationListItem(
               title: TranslationConstants.favoriteMovies.t(context),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context) => FavoriteScreen(),
+                  )
+                )
+              },
             ),
             NavigationExpandedListItem(
               title: TranslationConstants.language.t(context),
