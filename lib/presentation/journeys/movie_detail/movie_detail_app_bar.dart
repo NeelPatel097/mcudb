@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
+import 'package:mcuapp/domain/entities/movie_entity.dart';
+import 'package:mcuapp/presentation/blocs/favorite/favorite_bloc.dart';
 
 class MovieDetailAppbar extends StatelessWidget {
+  final MovieDetailEntity movieDetailEntity;
+
+  const MovieDetailAppbar({
+    Key key,
+    @required this.movieDetailEntity,
+}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -18,10 +28,32 @@ class MovieDetailAppbar extends StatelessWidget {
               size: Sizes.dimen_12.h,
           ),
         ),
-        Icon(
-          Icons.favorite_border,
-          color: Colors.white,
-          size: Sizes.dimen_12.h,
+        BlocBuilder<FavoriteBloc, FavoriteState>(
+          builder: (context, state) {
+            if (state is IsFavoriteMovie) {
+              return GestureDetector(
+                onTap: () => BlocProvider.of<FavoriteBloc>(context).add(
+                  ToggleFavoriteMovieEvent(
+                    MovieEntity.fromMovieDetailEntity(movieDetailEntity),
+                    state.isMovieFavorite,
+                  ),
+                ),
+                child: Icon(
+                  state.isMovieFavorite
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.white,
+                  size: Sizes.dimen_12.h,
+                ),
+              );
+            } else {
+              return Icon(
+                Icons.favorite_border,
+                color: Colors.white,
+                size: Sizes.dimen_12.h,
+              );
+            }
+          },
         ),
       ],
     );
