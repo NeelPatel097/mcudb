@@ -8,6 +8,7 @@ import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
 import 'package:mcuapp/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:mcuapp/presentation/journeys/drawer/navigation_list_item.dart';
+import 'package:mcuapp/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:mcuapp/presentation/widgets/app_dialog.dart';
 import 'package:mcuapp/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -49,9 +50,9 @@ class NavigationDrawer extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                      builder: (context) => FavoriteScreen(),
-                  )
-                )
+                    builder: (context) => FavoriteScreen(),
+                  ),
+                );
               },
             ),
             NavigationExpandedListItem(
@@ -87,7 +88,8 @@ class NavigationDrawer extends StatelessWidget {
 
   void _showDialog(BuildContext context) {
     showDialog(
-      builder: (context) => AppDialog(
+      context: context,
+      child: AppDialog(
         title: TranslationConstants.about,
         description: TranslationConstants.aboutDescription,
         buttonText: TranslationConstants.okay,
@@ -95,7 +97,7 @@ class NavigationDrawer extends StatelessWidget {
           'assets/pngs/tmdb_logo.png',
           height: Sizes.dimen_32.h,
         ),
-      ), context: context,
+      ),
     );
   }
 }

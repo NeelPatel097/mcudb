@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
+import 'package:mcuapp/domain/entities/movie_detail_entity.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
 import 'package:mcuapp/presentation/blocs/favorite/favorite_bloc.dart';
 
-class MovieDetailAppbar extends StatelessWidget {
+class MovieDetailAppBar extends StatelessWidget {
   final MovieDetailEntity movieDetailEntity;
 
-  const MovieDetailAppbar({
+  const MovieDetailAppBar({
     Key key,
     @required this.movieDetailEntity,
-}) : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,9 @@ class MovieDetailAppbar extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: Sizes.dimen_12.h,
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: Sizes.dimen_12.h,
           ),
         ),
         BlocBuilder<FavoriteBloc, FavoriteState>(

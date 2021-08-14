@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:mcuapp/domain/entities/movie_entity.dart'
 
 part 'movie_table.g.dart';
 
@@ -17,7 +18,14 @@ class MovieTable extends MovieEntity {
     this.id,
     this.title,
     this.posterPath,
-  });
+  }) : super (
+    id: id,
+    title: title,
+    posterPath: posterPath,
+    backdropPath: '';
+    releaseDate: '';
+    voteAverage: 0,
+  );
 
   factory MovieTable.fromMovieEntity(MovieEntity movieEntity) {
     return MovieTable(
