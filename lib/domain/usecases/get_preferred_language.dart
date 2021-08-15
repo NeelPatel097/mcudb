@@ -7,10 +7,10 @@ import 'package:mcuapp/domain/usecases/usecase.dart';
 class GetPreferredLanguage extends UseCase<String, NoParams> {
   final AppRepository appRepository;
 
-  GetPreferredLanguage(this.appRepostory);
+  GetPreferredLanguage(this.appRepository);
 
   @override
   Future<Either<AppError, String>> call(NoParams params) async {
-    return await appRepository.getPreferredLangague();
+    return await appRepository.getPreferredLanguage();
   }
 }

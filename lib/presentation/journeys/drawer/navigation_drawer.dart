@@ -88,8 +88,7 @@ class NavigationDrawer extends StatelessWidget {
 
   void _showDialog(BuildContext context) {
     showDialog(
-      context: context,
-      child: AppDialog(
+      builder: (context) => AppDialog(
         title: TranslationConstants.about,
         description: TranslationConstants.aboutDescription,
         buttonText: TranslationConstants.okay,
@@ -97,7 +96,7 @@ class NavigationDrawer extends StatelessWidget {
           'assets/pngs/tmdb_logo.png',
           height: Sizes.dimen_32.h,
         ),
-      ),
+      ), context: context,
     );
   }
 }

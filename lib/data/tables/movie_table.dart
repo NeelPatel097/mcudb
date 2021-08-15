@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:mcuapp/domain/entities/movie_entity.dart'
+import 'package:mcuapp/domain/entities/movie_entity.dart';
 
 part 'movie_table.g.dart';
 
@@ -22,8 +22,8 @@ class MovieTable extends MovieEntity {
     id: id,
     title: title,
     posterPath: posterPath,
-    backdropPath: '';
-    releaseDate: '';
+    backdropPath: '',
+    releaseDate: '',
     voteAverage: 0,
   );
 
@@ -32,6 +32,6 @@ class MovieTable extends MovieEntity {
       id: movieEntity.id,
       title: movieEntity.title,
       posterPath: movieEntity.posterPath,
-    )
+    );
   }
 }

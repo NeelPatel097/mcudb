@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
 class MovieDetailEntity extends Equatable {
-
   final int id;
   final String title;
   final String overview;
@@ -21,5 +20,5 @@ class MovieDetailEntity extends Equatable {
   });
 
   @override
-  List<Object>get props => [id];
+  List<Object> get props => [id];
 }
