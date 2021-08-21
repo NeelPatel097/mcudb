@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mcuapp/common/constants/languages.dart';
+import 'package:mcuapp/common/constants/route_constants.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/di/get_it.dart';
 import 'package:mcuapp/presentation/app_localizations.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
+import 'package:mcuapp/presentation/fade_page_route_builder.dart';
+import 'package:mcuapp/presentation/routes.dart';
 import 'package:mcuapp/presentation/themes/theme_color.dart';
 import 'package:mcuapp/presentation/themes/theme_text.dart';
 import 'package:mcuapp/presentation/wiredash_app.dart';
@@ -69,7 +72,18 @@ class _MovieAppState extends State<MovieApp> {
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                 ],
-                home: HomeScreen(),
+                builder: (context, child) {
+                  return child;
+                },
+                initialRoute: RouteList.initial,
+                onGenerateRoute: (RouteSettings settings) {
+                  final routes = Routes.getRoutes(settings);
+                  final WidgetBuilder builder = routes[settings.name];
+                  return FadePageRouteBuilder(
+                    builder: builder,
+                    settings: settings,
+                  );
+                },
               ),
             );
           }
