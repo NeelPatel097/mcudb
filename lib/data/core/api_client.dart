@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
+import 'package:mcuapp/data/core/unauthorised_exception.dart';
 
 import 'api_constants.dart';
 
@@ -21,6 +22,22 @@ class ApiClient {
       return json.decode(response.body);
     } else {
       throw Exception(response.reasonPhrase);
+    }
+  }
+
+  dynamic post(String path, {Map<dynamic, dynamic> params}) async {
+    final response = await _client.post(
+      getPath(path, null),
+      body: jsonEncode(params),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    );
+
+    if(response.statusCode == 200) {
+      return json.decode(response.body);
+    } else if(response.statusCode == 401) {
+      throw UnauthorisedException();
     }
   }
 
