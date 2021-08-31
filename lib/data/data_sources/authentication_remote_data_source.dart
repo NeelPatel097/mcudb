@@ -24,11 +24,21 @@ class AuthenticationRemoteDataSourceImpl extends AuthenticationRemoteDataSource 
   @override
   Future<RequestTokenModel> validateWithLogin(
       Map<String, dynamic> requestBody) async {
-
+    final response = await _client.post(
+      'authentication/token/validate_with_login',
+      params: requestBody,
+    );
+    print(response);
+    return RequestTokenModel.fromJson(response);
   }
 
   @override
   Future<String> createSession(Map<String, dynamic> requestBody) async {
-
+    final response = await _client.post(
+      'authentication/session/new',
+      params: requestBody,
+    );
+    print(response);
+    return response['success'] ? response['session_id'] : null;
   }
 }
