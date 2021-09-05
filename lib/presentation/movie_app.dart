@@ -8,6 +8,7 @@ import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/di/get_it.dart';
 import 'package:mcuapp/presentation/app_localizations.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
+import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
 import 'package:mcuapp/presentation/fade_page_route_builder.dart';
 import 'package:mcuapp/presentation/routes.dart';
 import 'package:mcuapp/presentation/themes/theme_color.dart';
@@ -27,17 +28,20 @@ class _MovieAppState extends State<MovieApp> {
 
   final _navigatorKey = GlobalKey<NavigatorState>();
   LanguageBloc _languageBloc;
+  LoginBloc _loginBloc;
 
   @override
   void initState() {
     super.initState();
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPreferredLanguageEvent());
+    _loginBloc = getItInstance<LoginBloc>();
   }
 
   @override
   void dispose() {
     _languageBloc.close();
+    _loginBloc?.close();
     super.dispose();
   }
 
