@@ -52,7 +52,7 @@ extension ThemeTextExtension on TextTheme {
     fontWeight: FontWeight.w600,
   );
 
-  TextStyle get greysubtitle1 => subtitle1.copyWith(
+  TextStyle get greySubtitle1 => subtitle1.copyWith(
     color: Colors.grey,
   );
 
@@ -67,6 +67,10 @@ extension ThemeTextExtension on TextTheme {
 
   TextStyle get greyCaption => caption.copyWith(
     color: Colors.grey,
+  );
+
+  TextStyle get orangeSubtitle1 => subtitle1.copyWith(
+    color: Colors.orangeAccent,
   );
 }
 

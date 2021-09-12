@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
+import 'package:mcuapp/presentation/themes/theme_text.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 
 class LabelFieldWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class LabelFieldWidget extends StatelessWidget {
   );
 
   final UnderlineInputBorder _focusedBorder = const UnderlineInputBorder(
-    borderSide: BorderSIde(
+    borderSide: BorderSide(
       color: Colors.white,
     ),
   );
@@ -26,12 +26,12 @@ class LabelFieldWidget extends StatelessWidget {
     @required this.hintText,
     @required this.controller,
     this.isPasswordField = false,
-  }) : super(key : key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: Sizes.dimen_8.h),
+      padding: EdgeInsets.symmetric(vertical: Sizes.dimen_8.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

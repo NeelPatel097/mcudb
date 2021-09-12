@@ -27,7 +27,7 @@ class ApiClient {
 
   dynamic post(String path, {Map<dynamic, dynamic> params}) async {
     final response = await _client.post(
-      getPath(path, null),
+      Uri.parse(getPath(path, null)),
       body: jsonEncode(params),
       headers: {
         'Content-Type': 'application/json',

@@ -40,7 +40,7 @@ class _MovieAppState extends State<MovieApp> {
 
   @override
   void dispose() {
-    _languageBloc.close();
+    _languageBloc?.close();
     _loginBloc?.close();
     super.dispose();
   }
@@ -48,52 +48,57 @@ class _MovieAppState extends State<MovieApp> {
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init();
-    return BlocProvider<LanguageBloc>.value(
-      value: _languageBloc,
-      child: BlocBuilder<LanguageBloc, LanguageState>(
-        builder: (context, state) {
-          if (state is LanguageLoaded) {
-            return WiredashApp(
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<LanguageBloc>.value(
+          value: _languageBloc),
+          BlocProvider<LoginBloc>.value(
+              value: _loginBloc),
+        ], child: BlocBuilder<LanguageBloc, LanguageState>(
+      builder: (context, state) {
+        if (state is LanguageLoaded) {
+          return WiredashApp(
+            navigatorKey: _navigatorKey,
+            languageCode: state.locale.languageCode,
+            child: MaterialApp(
               navigatorKey: _navigatorKey,
-              languageCode: state.locale.languageCode,
-              child: MaterialApp(
-                navigatorKey: _navigatorKey,
-                debugShowCheckedModeBanner: false,
-                title: 'MCU App',
-                theme: ThemeData(
-                  unselectedWidgetColor: AppColor.white,
-                  primaryColor: AppColor.vulcan,
-                  accentColor: AppColor.marvelRed,
-                  scaffoldBackgroundColor: AppColor.vulcan,
-                  visualDensity: VisualDensity.adaptivePlatformDensity,
-                  textTheme: ThemeText.getTextTheme(),
-                  appBarTheme: const AppBarTheme(elevation: 0),
-                ),
-                supportedLocales: Languages.languages.map((e) => Locale(e.code)).toList(),
-                locale: state.locale,
-                localizationsDelegates: [
-                  AppLocalizations.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                builder: (context, child) {
-                  return child;
-                },
-                initialRoute: RouteList.initial,
-                onGenerateRoute: (RouteSettings settings) {
-                  final routes = Routes.getRoutes(settings);
-                  final WidgetBuilder builder = routes[settings.name];
-                  return FadePageRouteBuilder(
-                    builder: builder,
-                    settings: settings,
-                  );
-                },
+              debugShowCheckedModeBanner: false,
+              title: 'MCU App',
+              theme: ThemeData(
+                unselectedWidgetColor: AppColor.white,
+                primaryColor: AppColor.vulcan,
+                accentColor: AppColor.marvelRed,
+                scaffoldBackgroundColor: AppColor.vulcan,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+                textTheme: ThemeText.getTextTheme(),
+                appBarTheme: const AppBarTheme(elevation: 0),
               ),
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
+              supportedLocales: Languages.languages.map((e) => Locale(e.code)).toList(),
+              locale: state.locale,
+              localizationsDelegates: [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              builder: (context, child) {
+                return child;
+              },
+              initialRoute: RouteList.initial,
+              onGenerateRoute: (RouteSettings settings) {
+                final routes = Routes.getRoutes(settings);
+                final WidgetBuilder builder = routes[settings.name];
+                return FadePageRouteBuilder(
+                  builder: builder,
+                  settings: settings,
+                );
+              },
+            ),
+          );
+        }
+        return const SizedBox.shrink();
+      },
+    ),
     );
+
   }
 }

@@ -46,7 +46,7 @@ class BigPoster extends StatelessWidget {
             ),
             subtitle: Text(
               movie.releaseDate,
-              style: Theme.of(context).textTheme.greysubtitle1,
+              style: Theme.of(context).textTheme.greySubtitle1,
             ),
             trailing: Text(
               movie.voteAverage.convertToPercentageString(),

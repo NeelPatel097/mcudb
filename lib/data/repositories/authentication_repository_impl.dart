@@ -2,12 +2,15 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:mcuapp/data/core/unauthorised_exception.dart';
+import 'package:mcuapp/data/data_sources/authentication_local_data_source.dart';
+import 'package:mcuapp/data/data_sources/authentication_remote_data_source.dart';
+import 'package:mcuapp/data/models/request_token_model.dart';
 import 'package:mcuapp/domain/entities/app_error.dart';
 import 'package:mcuapp/domain/repositories/authentication_repository.dart';
 
-class AuthenticationRepositoryImpl extemds AuthenticationRepository {
+class AuthenticationRepositoryImpl extends AuthenticationRepository {
   final AuthenticationRemoteDataSource _authenticationRemoteDataSource;
-  final AuthenticationLocalDataSourceDataSource _authenticationRemoteDataSource;
+  final AuthenticationLocalDataSource _authenticationLocalDataSource;
 
   AuthenticationRepositoryImpl(
     this._authenticationRemoteDataSource,
@@ -19,7 +22,9 @@ class AuthenticationRepositoryImpl extemds AuthenticationRepository {
         final response = await _authenticationRemoteDataSource.getRequestToken();
         return Right(response);
       } on SocketException {
-        return Left(AppError(AppErrorType.network))
+        return Left(AppError(AppErrorType.network));
+      } on Exception {
+        return Left(AppError(AppErrorType.api));
       }
   }
 
@@ -31,7 +36,7 @@ class AuthenticationRepositoryImpl extemds AuthenticationRepository {
       try {
         body.putIfAbsent('request_token', ()=> token1);
         final validateWithLoginToken = await _authenticationRemoteDataSource.validateWithLogin(body);
-        final sessionId = await _authenticationRemoteDataSource.createSession(validateWIthLoginToken.toJson());
+        final sessionId = await _authenticationRemoteDataSource.createSession(validateWithLoginToken.toJson());
         if (sessionId != null) {
           await _authenticationLocalDataSource.saveSessionId(sessionId);
           return Right(true);
@@ -48,6 +53,12 @@ class AuthenticationRepositoryImpl extemds AuthenticationRepository {
 
   @override
   Future<Either<AppError, void>> logoutUser() async {
-
+    final sessionId = await _authenticationLocalDataSource.getSessionId();
+    await Future.wait([
+      _authenticationRemoteDataSource.deleteSession(sessionId),
+      _authenticationLocalDataSource.deleteSessionId(),
+    ]);
+    print(await _authenticationLocalDataSource.getSessionId());
+    return Right(Unit);
   }
 }

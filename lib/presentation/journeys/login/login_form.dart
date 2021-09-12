@@ -1,14 +1,16 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mcuapp/common/constants/route_constants.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/constants/translation_constants.dart';
+import 'package:mcuapp/presentation/themes/theme_text.dart';
+import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
+import 'package:mcuapp/presentation/journeys/login/label_field_widget.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
+import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/presentation/widgets/button.dart';
 
-import 'label_field_widget.dart';
-
 class LoginForm extends StatefulWidget {
-
   @override
   _LoginFormState createState() => _LoginFormState();
 }
@@ -71,13 +73,38 @@ class _LoginFormState extends State<LoginForm> {
             LabelFieldWidget(
               label: TranslationConstants.password.t(context),
               hintText: TranslationConstants.enterPassword.t(context),
-              controller: _passwordController,,
+              controller: _passwordController,
               isPasswordField: true,
             ),
+            BlocConsumer<LoginBloc, LoginState>(
+              buildWhen: (previous, current) => current is LoginError,
+              builder: (context, state) {
+                if (state is LoginError)
+                  return Text(
+                    state.message.t(context),
+                    style: Theme.of(context).textTheme.orangeSubtitle1,
+                  );
+                return const SizedBox.shrink();
+              },
+              listenWhen: (previous, current) => current is LoginSuccess,
+              listener: (context, state) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteList.home,
+                        (route) => false,
+                );
+              },
+            ),
             Button(
-              onPressed: enableSignIn () {} : null,
+              onPressed: enableSignIn ? () {
+                BlocProvider.of<LoginBloc>(context).add(
+                  LoginInitiateEvent(
+                    _userNameController.text,
+                    _passwordController.text,
+                  ),
+                );
+              } : null,
               text: TranslationConstants.signIn,
-              isEnabled: enable,
+              isEnabled: enableSignIn,
             )
           ],
         ),
