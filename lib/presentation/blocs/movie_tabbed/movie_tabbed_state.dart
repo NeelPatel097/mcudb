@@ -15,19 +15,21 @@ class MovieTabChanged extends MovieTabbedState {
   final List<MovieEntity> movies;
 
   const MovieTabChanged({int currentTabIndex, this.movies})
-      : super(currentTabIndex:  currentTabIndex);
+      : super(currentTabIndex: currentTabIndex);
 
   @override
   List<Object> get props => [currentTabIndex, movies];
 }
 
 class MovieTabLoadError extends MovieTabbedState {
-
   final AppErrorType errorType;
 
   const MovieTabLoadError({
     int currentTabIndex,
-    this.errorType,
-  })
-      : super(currentTabIndex: currentTabIndex);
+    @required this.errorType,
+  }) : super(currentTabIndex: currentTabIndex);
+}
+
+class MovieTabLoading extends MovieTabbedState {
+  const MovieTabLoading({int currentTabIndex}) : super(currentTabIndex: currentTabIndex);
 }

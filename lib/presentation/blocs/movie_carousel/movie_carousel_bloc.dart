@@ -7,6 +7,7 @@ import 'package:mcuapp/domain/entities/app_error.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
 import 'package:mcuapp/domain/entities/no_params.dart';
 import 'package:mcuapp/domain/usecases/get_trending.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
 import 'package:mcuapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
 
 part 'movie_carousel_event.dart';
@@ -15,10 +16,12 @@ part 'movie_carousel_state.dart';
 class MovieCarouselBloc extends Bloc<MovieCarouselEvent, MovieCarouselState> {
   final GetTrending getTrending;
   final MovieBackdropBloc movieBackdropBloc;
+  final LoadingBloc loadingBloc;
 
   MovieCarouselBloc({
     @required this.getTrending,
     @required this.movieBackdropBloc,
+    @required this.loadingBloc,
 }) : super(MovieCarouselInitial());
 
   @override
@@ -26,6 +29,7 @@ class MovieCarouselBloc extends Bloc<MovieCarouselEvent, MovieCarouselState> {
     MovieCarouselEvent event,
   ) async* {
     if (event is CarouselLoadEvent) {
+      loadingBloc.add(StartLoading());
       final moviesEither = await getTrending(NoParams());
       yield moviesEither.fold(
           (l) => MovieCarouselError(l.appErrorType),
@@ -37,6 +41,7 @@ class MovieCarouselBloc extends Bloc<MovieCarouselEvent, MovieCarouselState> {
             );
           },
       );
+      loadingBloc.add(FinishLoading());
     }
   }
 }

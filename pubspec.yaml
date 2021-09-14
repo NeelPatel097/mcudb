@@ -40,6 +40,7 @@ dependencies:
   hive: ^2.0.4
   path_provider: ^2.0.2
   youtube_player_flutter: 8.0.0
+  flare_flutter: ^2.0.6
   flutter_localizations:
     sdk: flutter
 
@@ -68,6 +69,7 @@ flutter:
    - assets/svgs/
    - assets/pngs/
    - assets/languages/
+   - assets/animations/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

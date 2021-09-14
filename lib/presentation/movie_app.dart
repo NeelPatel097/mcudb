@@ -8,8 +8,10 @@ import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/di/get_it.dart';
 import 'package:mcuapp/presentation/app_localizations.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
 import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
 import 'package:mcuapp/presentation/fade_page_route_builder.dart';
+import 'package:mcuapp/presentation/journeys/loading/loading_screen.dart';
 import 'package:mcuapp/presentation/routes.dart';
 import 'package:mcuapp/presentation/themes/theme_color.dart';
 import 'package:mcuapp/presentation/themes/theme_text.dart';
@@ -29,6 +31,7 @@ class _MovieAppState extends State<MovieApp> {
   final _navigatorKey = GlobalKey<NavigatorState>();
   LanguageBloc _languageBloc;
   LoginBloc _loginBloc;
+  LoadingBloc _loadingBloc;
 
   @override
   void initState() {
@@ -36,12 +39,14 @@ class _MovieAppState extends State<MovieApp> {
     _languageBloc = getItInstance<LanguageBloc>();
     _languageBloc.add(LoadPreferredLanguageEvent());
     _loginBloc = getItInstance<LoginBloc>();
+    _loadingBloc = getItInstance<LoadingBloc>();
   }
 
   @override
   void dispose() {
     _languageBloc?.close();
     _loginBloc?.close();
+    _loadingBloc?.close();
     super.dispose();
   }
 
@@ -54,6 +59,8 @@ class _MovieAppState extends State<MovieApp> {
           value: _languageBloc),
           BlocProvider<LoginBloc>.value(
               value: _loginBloc),
+          BlocProvider<LoadingBloc>.value(
+              value: _loadingBloc),
         ], child: BlocBuilder<LanguageBloc, LanguageState>(
       builder: (context, state) {
         if (state is LanguageLoaded) {
@@ -81,7 +88,9 @@ class _MovieAppState extends State<MovieApp> {
                 GlobalWidgetsLocalizations.delegate,
               ],
               builder: (context, child) {
-                return child;
+                return LoadingScreen(
+                  screen: child,
+                );
               },
               initialRoute: RouteList.initial,
               onGenerateRoute: (RouteSettings settings) {
