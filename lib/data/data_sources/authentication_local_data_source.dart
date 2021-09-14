@@ -7,14 +7,6 @@ abstract class AuthenticationLocalDataSource {
 }
 
 class AuthenticationLocalDataSourceImpl extends AuthenticationLocalDataSource {
-
-  @override
-  Future<void> saveSessionId(String sessionId) async {
-    print('delete session - local');
-    final authenticationBox = await Hive.openBox('authenticationBox');
-    authenticationBox.delete('session_id');
-  }
-
   @override
   Future<void> deleteSessionId() async {
     print('delete session - local');
@@ -28,4 +20,9 @@ class AuthenticationLocalDataSourceImpl extends AuthenticationLocalDataSource {
     return await authenticationBox.get('session_id');
   }
 
+  @override
+  Future<void> saveSessionId(String sessionId) async {
+    final authenticationBox = await Hive.openBox('authenticationBox');
+    return await authenticationBox.put('session_id', sessionId);
+  }
 }

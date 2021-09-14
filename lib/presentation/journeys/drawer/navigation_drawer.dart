@@ -7,9 +7,9 @@ import 'package:mcuapp/common/constants/translation_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
+import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
 import 'package:mcuapp/presentation/journeys/drawer/navigation_expanded_list_item.dart';
 import 'package:mcuapp/presentation/journeys/drawer/navigation_list_item.dart';
-import 'package:mcuapp/presentation/journeys/favorite/favorite_screen.dart';
 import 'package:mcuapp/presentation/widgets/app_dialog.dart';
 import 'package:mcuapp/presentation/widgets/logo.dart';
 import 'package:wiredash/wiredash.dart';
@@ -77,6 +77,19 @@ class NavigationDrawer extends StatelessWidget {
                 _showDialog(context);
               },
             ),
+            BlocListener<LoginBloc, LoginState>(
+              listenWhen: (previous, current) => current is LogoutSuccess,
+              listener: (context, state) {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    RouteList.initial, (route) => false);
+              },
+              child: NavigationListItem(
+                title: TranslationConstants.logout.t(context),
+                onPressed: () {
+                  BlocProvider.of<LoginBloc>(context).add(LogoutEvent());
+                },
+              ),
+            )
           ],
         ),
       ),

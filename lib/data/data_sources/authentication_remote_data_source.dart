@@ -1,4 +1,4 @@
-import 'package:http/http.dart';
+
 import 'package:mcuapp/data/core/api_client.dart';
 import 'package:mcuapp/data/models/request_token_model.dart';
 
@@ -6,6 +6,7 @@ abstract class AuthenticationRemoteDataSource {
   Future<RequestTokenModel> getRequestToken();
   Future<RequestTokenModel> validateWithLogin(Map<String, dynamic> requestBody);
   Future<String> createSession(Map<String, dynamic> requestBody);
+  Future<String> deleteSession(String sessionId);
 }
 
 class AuthenticationRemoteDataSourceImpl extends AuthenticationRemoteDataSource {
@@ -41,4 +42,26 @@ class AuthenticationRemoteDataSourceImpl extends AuthenticationRemoteDataSource 
     print(response);
     return response['success'] ? response['session_id'] : null;
   }
+
+  @override
+  Future<String> deleteSession(String sessionId) async {
+    final response = await _client.deleteWithBody(
+      'authentication/session',
+      params: {
+        'session_id': sessionId,
+      },
+    );
+    return response['success'] ?? false;
+  }
+
+  // @override
+  // Future<bool> deleteSession(String sessionId) async {
+  //   final response = await _client.deleteWithBody(
+  //     'authentication/session',
+  //     params: {
+  //       'session_id': sessionId,
+  //     },
+  //   );
+  //   return response['success'] ?? false;
+  // }
 }
