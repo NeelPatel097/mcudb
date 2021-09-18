@@ -9,6 +9,7 @@ import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/presentation/journeys/home/movie_tabbed/movie_list_view_builder.dart';
 import 'package:mcuapp/presentation/journeys/home/movie_tabbed/movie_tabbed_constants.dart';
 import 'package:mcuapp/presentation/journeys/home/movie_tabbed/tab_title_widget.dart';
+import 'package:mcuapp/presentation/journeys/loading/loading_circle.dart';
 import 'package:mcuapp/presentation/widgets/app_error_widget.dart';
 
 class MovieTabbedWidget extends StatefulWidget {
@@ -47,7 +48,7 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget> with SingleTicker
                     children: [
                       for (var i = 0;
                             i < MovieTabbedConstants.movieTabs.length;
-                            i ++)
+                            i++)
                         TabTitleWidget(
                             title: MovieTabbedConstants.movieTabs[i].title,
                             onTap: () => _onTabTapped(i),
@@ -80,6 +81,12 @@ class _MovieTabbedWidgetState extends State<MovieTabbedWidget> with SingleTicker
                         ),
                       ),
                     ),
+                  if (state is MovieTabLoading)
+                    Expanded(child: Center(
+                      child: LoadingCircle(
+                        size: Sizes.dimen_100.w,
+                      ),
+                    ),),
                 ],
               ),
           );
