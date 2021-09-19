@@ -4,7 +4,7 @@ import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/domain/entities/movie_detail_entity.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
-import 'package:mcuapp/presentation/blocs/favorite/favorite_bloc.dart';
+import 'package:mcuapp/presentation/blocs/favorite/favorite_cubit.dart';
 
 class MovieDetailAppBar extends StatelessWidget {
   final MovieDetailEntity movieDetailEntity;
@@ -29,11 +29,11 @@ class MovieDetailAppBar extends StatelessWidget {
             size: Sizes.dimen_12.h,
           ),
         ),
-        BlocBuilder<FavoriteBloc, FavoriteState>(
+        BlocBuilder<FavoriteCubit, FavoriteState>(
           builder: (context, state) {
             if (state is IsFavoriteMovie) {
               return GestureDetector(
-                onTap: () => BlocProvider.of<FavoriteBloc>(context).add(
+                onTap: () => BlocProvider.of<FavoriteCubit>(context).add(
                   ToggleFavoriteMovieEvent(
                     MovieEntity.fromMovieDetailEntity(movieDetailEntity),
                     state.isMovieFavorite,

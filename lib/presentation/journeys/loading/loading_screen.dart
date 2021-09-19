@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
-import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_cubit.dart';
 import 'package:mcuapp/presentation/journeys/loading/loading_circle.dart';
 import 'package:mcuapp/presentation/themes/theme_color.dart';
 
@@ -14,13 +14,13 @@ class LoadingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoadingBloc, LoadingState>(
-      builder: (context, state) {
+    return BlocBuilder<LoadingCubit, bool>(
+      builder: (context, shouldShow) {
         return Stack(
           fit: StackFit.expand,
           children: [
             screen,
-            if (state is LoadingStarted)
+            if (shouldShow)
               Container(
                 decoration: BoxDecoration(
                     color: AppColor.vulcan.withOpacity(0.8)

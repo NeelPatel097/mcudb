@@ -4,7 +4,7 @@ import 'package:mcuapp/common/constants/route_constants.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/constants/translation_constants.dart';
 import 'package:mcuapp/presentation/themes/theme_text.dart';
-import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
+import 'package:mcuapp/presentation/blocs/login/login_cubit.dart';
 import 'package:mcuapp/presentation/journeys/login/label_field_widget.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/extensions/string_extensions.dart';
@@ -76,7 +76,7 @@ class _LoginFormState extends State<LoginForm> {
               controller: _passwordController,
               isPasswordField: true,
             ),
-            BlocConsumer<LoginBloc, LoginState>(
+            BlocConsumer<LoginCubit, LoginState>(
               buildWhen: (previous, current) => current is LoginError,
               builder: (context, state) {
                 if (state is LoginError)
@@ -96,7 +96,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Button(
               onPressed: enableSignIn ? () {
-                BlocProvider.of<LoginBloc>(context).add(
+                BlocProvider.of<LoginCubit>(context).add(
                   LoginInitiateEvent(
                     _userNameController.text,
                     _passwordController.text,

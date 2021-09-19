@@ -10,48 +10,45 @@ import 'package:mcuapp/domain/entities/login_request_params.dart';
 import 'package:mcuapp/domain/entities/no_params.dart';
 import 'package:mcuapp/domain/usecases/login_user.dart';
 import 'package:mcuapp/domain/usecases/logout_user.dart';
-import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_cubit.dart';
 import 'package:meta/meta.dart';
 
-part 'login_event.dart';
 part 'login_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
+class LoginCubit extends Cubit<LoginState> {
   final LoginUser loginUser;
   final LogoutUser logoutUser;
-  final LoadingBloc loadingBloc;
+  final LoadingCubit loadingCubit;
 
-  LoginBloc({
+  LoginCubit({
     @required this.loginUser,
     @required this.logoutUser,
-    @required this.loadingBloc,
+    @required this.loadingCubit,
 }) : super(LoginInitial());
 
-  @override
-  Stream<LoginState> mapEventToState(
-    LoginEvent event,
-  ) async* {
-    if (event is LoginInitiateEvent) {
-      loadingBloc.add(StartLoading());
-      final Either<AppError, bool> eitherResponse = await loginUser(
-        LoginRequestParams(
-          userName: event.username,
-          password: event.password,
-        ),
-      );
+  void initiateLogin(String username, password) async {
+    loadingCubit.show();
+    final Either<AppError, bool> eitherResponse = await loginUser(
+      LoginRequestParams(
+        userName: username,
+        password: password,
+      ),
+    );
 
-      yield eitherResponse.fold(
-              (l) {
-                var message = getErrorMessage(l.appErrorType);
-                return LoginError(message);
-              },
-              (r) => LoginSuccess(),
-      );
-      loadingBloc.add(FinishLoading());
-    } else if (event is LogoutEvent) {
-      await logoutUser(NoParams());
-      yield LogoutSuccess();
-    }
+    emit(eitherResponse.fold(
+          (l) {
+        var message = getErrorMessage(l.appErrorType);
+        print(message);
+        return LoginError(message);
+      },
+          (r) => LoginSuccess(),
+    ));
+    loadingCubit.hide();
+  }
+
+  void logout() async {
+    await logoutUser(NoParams());
+    emit(LogoutSuccess());
   }
 
   String getErrorMessage(AppErrorType appErrorType) {

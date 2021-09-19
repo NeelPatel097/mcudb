@@ -5,7 +5,7 @@ import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
-import '../../../blocs/movie_backdrop/movie_backdrop_bloc.dart';
+import '../../../blocs/movie_backdrop/movie_backdrop_cubit.dart';
 import 'animated_movie_card_widget.dart';
 
 
@@ -62,7 +62,7 @@ class _MoviePageViewState extends State<MoviePageView> {
         pageSnapping: true,
         itemCount: widget.movies?.length ?? 0,
         onPageChanged: (index) {
-          BlocProvider.of<MovieBackdropBloc>(context)
+          BlocProvider.of<MovieBackdropCubit>(context)
               .add(MovieBackdropChangedEvent(widget.movies[index]));
         },
       ),

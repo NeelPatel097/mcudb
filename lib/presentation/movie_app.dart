@@ -7,9 +7,9 @@ import 'package:mcuapp/common/constants/route_constants.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/di/get_it.dart';
 import 'package:mcuapp/presentation/app_localizations.dart';
-import 'package:mcuapp/presentation/blocs/language/language_bloc.dart';
-import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
-import 'package:mcuapp/presentation/blocs/login/login_bloc.dart';
+import 'package:mcuapp/presentation/blocs/language/language_cubit.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_cubit.dart';
+import 'package:mcuapp/presentation/blocs/login/login_cubit.dart';
 import 'package:mcuapp/presentation/fade_page_route_builder.dart';
 import 'package:mcuapp/presentation/journeys/loading/loading_screen.dart';
 import 'package:mcuapp/presentation/routes.dart';
@@ -29,17 +29,17 @@ class MovieApp extends StatefulWidget {
 class _MovieAppState extends State<MovieApp> {
 
   final _navigatorKey = GlobalKey<NavigatorState>();
-  LanguageBloc _languageBloc;
-  LoginBloc _loginBloc;
-  LoadingBloc _loadingBloc;
+  LanguageCubit _languageBloc;
+  LoginCubit _loginBloc;
+  LoadingCubit _loadingBloc;
 
   @override
   void initState() {
     super.initState();
-    _languageBloc = getItInstance<LanguageBloc>();
+    _languageBloc = getItInstance<LanguageCubit>();
     _languageBloc.add(LoadPreferredLanguageEvent());
-    _loginBloc = getItInstance<LoginBloc>();
-    _loadingBloc = getItInstance<LoadingBloc>();
+    _loginBloc = getItInstance<LoginCubit>();
+    _loadingBloc = getItInstance<LoadingCubit>();
   }
 
   @override
@@ -55,13 +55,13 @@ class _MovieAppState extends State<MovieApp> {
     ScreenUtil.init();
     return MultiBlocProvider(
         providers: [
-          BlocProvider<LanguageBloc>.value(
+          BlocProvider<LanguageCubit>.value(
           value: _languageBloc),
-          BlocProvider<LoginBloc>.value(
+          BlocProvider<LoginCubit>.value(
               value: _loginBloc),
-          BlocProvider<LoadingBloc>.value(
+          BlocProvider<LoadingCubit>.value(
               value: _loadingBloc),
-        ], child: BlocBuilder<LanguageBloc, LanguageState>(
+        ], child: BlocBuilder<LanguageCubit, LanguageState>(
       builder: (context, state) {
         if (state is LanguageLoaded) {
           return WiredashApp(

@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/data/core/api_constants.dart';
-import 'package:mcuapp/presentation/blocs/cast/cast_bloc.dart';
+import 'package:mcuapp/presentation/blocs/cast/cast_cubit.dart';
 import 'package:mcuapp/presentation/themes/theme_text.dart';
 
 class CastWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CastBloc, CastState>(
+    return BlocBuilder<CastCubit, CastState>(
       builder: (context, state) {
         if (state is CastLoaded) {
           return Container(

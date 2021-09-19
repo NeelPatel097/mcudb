@@ -9,7 +9,7 @@ import 'package:mcuapp/common/constants/size_constants.dart';
 import 'package:mcuapp/common/screenutil/screenutil.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/data/core/api_constants.dart';
-import 'package:mcuapp/presentation/blocs/movie_backdrop/movie_backdrop_bloc.dart';
+import 'package:mcuapp/presentation/blocs/movie_backdrop/movie_backdrop_cubit.dart';
 
 class MovieBackdropWidget extends StatelessWidget {
   @override
@@ -26,7 +26,7 @@ class MovieBackdropWidget extends StatelessWidget {
             FractionallySizedBox(
               heightFactor: 1,
               widthFactor: 1,
-              child: BlocBuilder<MovieBackdropBloc, MovieBackdropState>(
+              child: BlocBuilder<MovieBackdropCubit, MovieBackdropState>(
                 builder: (context, state) {
                   if (state is MovieBackdropChanged) {
                     return CachedNetworkImage(

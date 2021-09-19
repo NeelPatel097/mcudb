@@ -4,7 +4,7 @@ import 'package:mcuapp/common/constants/translation_constants.dart';
 import 'package:mcuapp/common/extensions/string_extensions.dart';
 import 'package:mcuapp/common/extensions/size_extensions.dart';
 import 'package:mcuapp/domain/entities/app_error.dart';
-import 'package:mcuapp/presentation/blocs/movie_carousel/movie_carousel_bloc.dart';
+import 'package:mcuapp/presentation/blocs/movie_carousel/movie_carousel_cubit.dart';
 import 'package:mcuapp/presentation/widgets/button.dart';
 import 'package:wiredash/wiredash.dart';
 

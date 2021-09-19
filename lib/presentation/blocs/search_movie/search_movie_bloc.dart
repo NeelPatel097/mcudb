@@ -7,7 +7,7 @@ import 'package:mcuapp/domain/entities/app_error.dart';
 import 'package:mcuapp/domain/entities/movie_entity.dart';
 import 'package:mcuapp/domain/entities/movie_search_params.dart';
 import 'package:mcuapp/domain/usecases/search_movies.dart';
-import 'package:mcuapp/presentation/blocs/loading/loading_bloc.dart';
+import 'package:mcuapp/presentation/blocs/loading/loading_cubit.dart';
 import 'package:meta/meta.dart';
 
 part 'search_movie_event.dart';
@@ -15,7 +15,7 @@ part 'search_movie_state.dart';
 
 class SearchMovieBloc extends Bloc<SearchMovieEvent, SearchMovieState> {
   final SearchMovies searchMovies;
-  final LoadingBloc loadingBloc;
+  final LoadingCubit loadingBloc;
 
   SearchMovieBloc({
     @required this.searchMovies,
