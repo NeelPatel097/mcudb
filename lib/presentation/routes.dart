@@ -11,8 +11,12 @@ class Routes {
   static Map<String, WidgetBuilder> getRoutes(RouteSettings setting) => {
     RouteList.initial: (context) => LoginScreen(),
     RouteList.home: (context) => HomeScreen(),
-    RouteList.movieDetail: (context) => MovieDetailScreen(movieDetailArguments: setting.arguments),
-    RouteList.watchTrailer: (context) => WatchVideoScreen(watchVideoArguments: setting.arguments),
+    RouteList.movieDetail: (context) => MovieDetailScreen(
+      movieDetailArguments: setting.arguments,
+    ),
+    RouteList.watchTrailer: (context) => WatchVideoScreen(
+      watchVideoArguments: setting.arguments,
+    ),
     RouteList.favorite: (context) => FavoriteScreen(),
   };
 }

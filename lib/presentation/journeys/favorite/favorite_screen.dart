@@ -20,7 +20,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   void initState() {
     super.initState();
     _favoriteBloc = getItInstance<FavoriteCubit>();
-    _favoriteBloc.add(LoadFavoriteMovieEvent());
+    _favoriteBloc.loadFavoriteMovie();
   }
 
   @override

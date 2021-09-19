@@ -21,32 +21,30 @@ import 'package:wiredash/wiredash.dart';
 import 'journeys/home/home_screen.dart';
 
 class MovieApp extends StatefulWidget {
-
   @override
   _MovieAppState createState() => _MovieAppState();
 }
 
 class _MovieAppState extends State<MovieApp> {
-
   final _navigatorKey = GlobalKey<NavigatorState>();
-  LanguageCubit _languageBloc;
+  LanguageCubit _languageCubit;
   LoginCubit _loginBloc;
-  LoadingCubit _loadingBloc;
+  LoadingCubit _loadingCubit;
 
   @override
   void initState() {
     super.initState();
-    _languageBloc = getItInstance<LanguageCubit>();
-    _languageBloc.add(LoadPreferredLanguageEvent());
+    _languageCubit = getItInstance<LanguageCubit>();
+    _languageCubit.loadPreferredLanguage();
     _loginBloc = getItInstance<LoginCubit>();
-    _loadingBloc = getItInstance<LoadingCubit>();
+    _loadingCubit = getItInstance<LoadingCubit>();
   }
 
   @override
   void dispose() {
-    _languageBloc?.close();
+    _languageCubit?.close();
     _loginBloc?.close();
-    _loadingBloc?.close();
+    _loadingCubit?.close();
     super.dispose();
   }
 
@@ -54,60 +52,61 @@ class _MovieAppState extends State<MovieApp> {
   Widget build(BuildContext context) {
     ScreenUtil.init();
     return MultiBlocProvider(
-        providers: [
-          BlocProvider<LanguageCubit>.value(
-          value: _languageBloc),
-          BlocProvider<LoginCubit>.value(
-              value: _loginBloc),
-          BlocProvider<LoadingCubit>.value(
-              value: _loadingBloc),
-        ], child: BlocBuilder<LanguageCubit, LanguageState>(
-      builder: (context, state) {
-        if (state is LanguageLoaded) {
-          return WiredashApp(
-            navigatorKey: _navigatorKey,
-            languageCode: state.locale.languageCode,
-            child: MaterialApp(
+      providers: [
+        BlocProvider<LanguageCubit>.value(
+          value: _languageCubit,
+        ),
+        BlocProvider<LoginCubit>.value(
+          value: _loginBloc,
+        ),
+        BlocProvider<LoadingCubit>.value(
+          value: _loadingCubit,
+        ),
+      ],
+      child: BlocBuilder<LanguageCubit, Locale>(
+          builder: (context, locale) {
+            return WiredashApp(
               navigatorKey: _navigatorKey,
-              debugShowCheckedModeBanner: false,
-              title: 'MCU App',
-              theme: ThemeData(
-                unselectedWidgetColor: AppColor.white,
-                primaryColor: AppColor.vulcan,
-                accentColor: AppColor.marvelRed,
-                scaffoldBackgroundColor: AppColor.vulcan,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-                textTheme: ThemeText.getTextTheme(),
-                appBarTheme: const AppBarTheme(elevation: 0),
+              languageCode: locale.languageCode,
+              child: MaterialApp(
+                navigatorKey: _navigatorKey,
+                debugShowCheckedModeBanner: false,
+                title: 'Movie App',
+                theme: ThemeData(
+                  unselectedWidgetColor: AppColor.marvelRed,
+                  primaryColor: AppColor.vulcan,
+                  accentColor: AppColor.marvelRed,
+                  scaffoldBackgroundColor: AppColor.vulcan,
+                  visualDensity: VisualDensity.adaptivePlatformDensity,
+                  textTheme: ThemeText.getTextTheme(),
+                  appBarTheme: const AppBarTheme(elevation: 0),
+                ),
+                supportedLocales:
+                Languages.languages.map((e) => Locale(e.code)).toList(),
+                locale: locale,
+                localizationsDelegates: [
+                  AppLocalizations.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                builder: (context, child) {
+                  return LoadingScreen(
+                    screen: child,
+                  );
+                },
+                initialRoute: RouteList.initial,
+                onGenerateRoute: (RouteSettings settings) {
+                  final routes = Routes.getRoutes(settings);
+                  final WidgetBuilder builder = routes[settings.name];
+                  return FadePageRouteBuilder(
+                    builder: builder,
+                    settings: settings,
+                  );
+                },
               ),
-              supportedLocales: Languages.languages.map((e) => Locale(e.code)).toList(),
-              locale: state.locale,
-              localizationsDelegates: [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
-              builder: (context, child) {
-                return LoadingScreen(
-                  screen: child,
-                );
-              },
-              initialRoute: RouteList.initial,
-              onGenerateRoute: (RouteSettings settings) {
-                final routes = Routes.getRoutes(settings);
-                final WidgetBuilder builder = routes[settings.name];
-                return FadePageRouteBuilder(
-                  builder: builder,
-                  settings: settings,
-                );
-              },
-            ),
-          );
-        }
-        return const SizedBox.shrink();
-      },
-    ),
+            );
+          }
+      ),
     );
-
   }
 }

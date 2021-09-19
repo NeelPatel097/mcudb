@@ -12,14 +12,14 @@ import 'package:mcuapp/domain/usecases/get_movie_detail.dart';
 import 'package:mcuapp/presentation/blocs/cast/cast_cubit.dart';
 import 'package:mcuapp/presentation/blocs/favorite/favorite_cubit.dart';
 import 'package:mcuapp/presentation/blocs/loading/loading_cubit.dart';
-import 'package:mcuapp/presentation/blocs/videos/videos_bloc.dart';
+import 'package:mcuapp/presentation/blocs/videos/videos_cubit.dart';
 
 part 'movie_detail_state.dart';
 
 class MovieDetailCubit extends Cubit<MovieDetailState> {
   final GetMovieDetail getMovieDetail;
   final CastCubit castBloc;
-  final VideosBloc videosCubit;
+  final VideosCubit videosCubit;
   final FavoriteCubit favoriteCubit;
   final LoadingCubit loadingCubit;
 

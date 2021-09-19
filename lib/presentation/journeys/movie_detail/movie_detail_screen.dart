@@ -8,7 +8,7 @@ import 'package:mcuapp/di/get_it.dart';
 import 'package:mcuapp/presentation/blocs/cast/cast_cubit.dart';
 import 'package:mcuapp/presentation/blocs/favorite/favorite_cubit.dart';
 import 'package:mcuapp/presentation/blocs/movie_detail/movie_detail_cubit.dart';
-import 'package:mcuapp/presentation/blocs/videos/videos_bloc.dart';
+import 'package:mcuapp/presentation/blocs/videos/videos_cubit.dart';
 import 'package:mcuapp/presentation/journeys/movie_detail/big_poster.dart';
 import 'package:mcuapp/presentation/journeys/movie_detail/movie_detail_arguments.dart';
 import 'package:mcuapp/presentation/journeys/movie_detail/videos_widget.dart';
@@ -31,7 +31,7 @@ class MovieDetailScreen extends StatefulWidget {
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
   MovieDetailCubit _movieDetailBloc;
   CastCubit _castBloc;
-  VideosBloc _videosBloc;
+  VideosCubit _videosBloc;
   FavoriteCubit _favoriteBloc;
 
   @override
@@ -39,13 +39,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     super.initState();
     _movieDetailBloc = getItInstance<MovieDetailCubit>();
     _castBloc = _movieDetailBloc.castBloc;
-    _videosBloc = _movieDetailBloc.videosBloc;
-    _favoriteBloc = _movieDetailBloc.favoriteBloc;
-    _movieDetailBloc.add(
-      MovieDetailLoadEvent(
+    _videosBloc = _movieDetailBloc.videosCubit;
+    _favoriteBloc = _movieDetailBloc.favoriteCubit;
+    _movieDetailBloc.loadMovieDetail(
         widget.movieDetailArguments.movieId,
-      ),
-    );
+      );
   }
 
   @override
@@ -98,7 +96,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                     CastWidget(),
-                    VideosWidget(videosBloc: _videosBloc),
+                    VideosWidget(videosCubit: _videosBloc),
                   ],
                 ),
               );

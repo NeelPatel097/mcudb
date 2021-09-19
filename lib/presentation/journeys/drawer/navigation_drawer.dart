@@ -56,10 +56,8 @@ class NavigationDrawer extends StatelessWidget {
               title: TranslationConstants.language.t(context),
               children: Languages.languages.map((e) => e.value).toList(),
               onPressed: (index) {
-                BlocProvider.of<LanguageCubit>(context).add(
-                  ToggleLanguageEvent(
+                BlocProvider.of<LanguageCubit>(context).toggleLanguage(
                     Languages.languages[index],
-                  ),
                 );
               },
             ),
@@ -86,7 +84,7 @@ class NavigationDrawer extends StatelessWidget {
               child: NavigationListItem(
                 title: TranslationConstants.logout.t(context),
                 onPressed: () {
-                  BlocProvider.of<LoginCubit>(context).add(LogoutEvent());
+                  BlocProvider.of<LoginCubit>(context).logout();
                 },
               ),
             )

@@ -45,7 +45,7 @@ class FavoriteMovieCardWidget extends StatelessWidget {
               Align(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
-                  onTap: () => BlocProvider.of<FavoriteCubit>(context).add(DeleteFavoriteMovieEvent(movie.id)),
+                  onTap: () => context.read<FavoriteCubit>().deleteMovie(movie.id),
                   child: Padding(
                     padding: EdgeInsets.all(Sizes.dimen_12.w),
                     child: Icon(
